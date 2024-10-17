@@ -1,0 +1,18 @@
+public static int lengthOfLIS(int[] nums) {
+        int[] dp=new int[nums.length];
+        int max=1;
+        for(int i=nums.length-1;i>=0;i--){
+            dp[i]=1;
+            for(int j=i+1;j<nums.length;j++){
+                if(nums[j]>nums[i]){
+                    dp[i]=Math.max(dp[i],dp[j]+1);
+                }
+            }
+            max=Math.max(dp[i],max);
+        }
+        return max;
+    }
+这是第300题的代码，然后就内外两层的遍历顺序有点问题
+因为递归函数很好写，主函数里从0到nums.length-1遍历，递归函数里index+1到nums.lengh-1遍历
+但是这引起了混淆，从递归函数来看确实应该是这个顺序，但是由递归公式，dp[i]=Math.max(dp[i],dp[j]+1);
+既然当前的dp值要完全依赖于之后的dp值，那么至少要首先确定之后的dp值，这是很重要的。所以外层dp要从后往前来进行。内层从前往后即可。

@@ -1,0 +1,56 @@
+就这最长递增子序列，有两种动态规划写法
+1.以当前元素作为开头，从最后一个元素开始进行检查，其后的从当前元素的下一个开始检查，直到最后一个元素为止
+public static int length(int[] nums){
+        int[] dp=new int[nums.length];
+        Arrays.fill(dp,1);
+        int max=1;
+        for(int i=nums.length-1;i>=0;i--){
+            for(int j=i+1;j<nums.length;j++){
+                if(nums[j]>nums[i]){
+                    dp[i]=Math.max(dp[j]+1,dp[i]);
+                }
+            }
+            max=Math.max(max,dp[i]);
+        }
+        return max;
+    }
+2.以当前元素作为结尾，外循环从第一个元素开始检查，（内循环）其后的从数组第一个元素进行检查，直到当前元素为止
+public int lengthOfLIS(int[] nums) {
+        int n = nums.length, ans = 0;
+        int[] f = new int[n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[j] < nums[i]) {
+                    f[i] = Math.max(f[i], f[j]+1);
+                }
+            }
+            ans = Math.max(ans, f[i]);
+        }
+        return ans;
+    }
+3.二分查找快速找最长递增序列
+public static int lengthOfLIS(int[] nums) {
+        int[] arr=new int[nums.length];
+        Arrays.fill(arr,Integer.MAX_VALUE);
+        int max=0;
+        for(int c:nums){
+            int ans=BinarySearch(arr,c);
+            max=Math.max(ans,max);
+            arr[ans]=c;
+        }
+        return max+1;
+    }
+    public static int BinarySearch(int[] nums,int c){
+        int left=0;
+        int right=nums.length-1;
+        while(left<=right){
+            int mid=left+(right-left)/2;
+            if(nums[mid]<c){
+                left=mid+1;
+            }else{
+                right=mid-1;
+            }
+        }
+//        System.out.println(left);
+        return left;
+    }

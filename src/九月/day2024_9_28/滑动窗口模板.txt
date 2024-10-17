@@ -1,0 +1,22 @@
+public static int numOfSubarrays(int[] arr, int k, int threshold) {
+        int left=0;
+        int sum=0;
+        int ans=0;
+        //遍历以整个数组每个元素作为右端点的情况
+        for(int right=0;right<arr.length;right++){
+            //首先先加上右端点的情况，这个表达式根据题目实际要求去做
+            sum+=arr[right];
+            //更新加上了右端点之后的和题目相关的信息，有的是特定元素的数目，有的是子数组的和等等
+            int len=right-left+1;
+            //如果不满足相关的条件了，则删掉left的位置的那个数，这里通常会用while直到这个条件满足为止（不定长情况）（定长一般用if）
+            if(len==k+1){
+                sum-=arr[left++];
+                len--;
+            }
+            //如果len满足长度，并且满足要求，ans++;
+            if( len==k && sum/len>=threshold){
+                ans++;
+            }
+        }
+        return ans;
+    }
