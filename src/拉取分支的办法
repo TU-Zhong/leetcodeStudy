@@ -1,0 +1,5 @@
+1.用idea直接克隆，默认克隆main分支
+2.用git branch命令查看当前分支的个数和命名
+3.用git branch -a查看隐藏的那些分支
+4.用git checkout -f master(分支名) 来切换到那些想要拉取的分支
+5.git merge orijin/master --allow-unrelated-histories来进行合并分支
