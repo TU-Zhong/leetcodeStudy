@@ -1,0 +1,12 @@
+1.端口号为自己的vpn端口
+
+2.原因1：VPN代理导致本地网络异常 【博主采用此法解决】
+  如果你开启了VPN，很可能是因为代理的问题，这时候设置一下http.proxy就可以了
+  一定要查看自己的VPN端口号，假如你的端口号是7890，在git bash命令行中输入以下命令即可：
+  git config --global http.proxy 127.0.0.1:7890
+  git config --global https.proxy 127.0.0.1:7890
+
+
+3.如果你之前git中已经设置过上述配置，则使用如下命令取消再进行配置即可：
+    git config --global --unset http.proxy
+    git config --global --unset https.proxy
